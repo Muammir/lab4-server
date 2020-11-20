@@ -6,6 +6,7 @@ int main(int argc , char *argv[])
 {
 	int socket_desc , new_socket , c;
 	struct sockaddr_in server , client;
+	char msg[2000] = "Hai apa khabar", buffer[2000] ={0};
 	
 	//Create socket
 	socket_desc = socket(AF_INET , SOCK_STREAM , 0);
@@ -32,13 +33,17 @@ int main(int argc , char *argv[])
 	//Accept and incoming connection
 	puts("Waiting for incoming connections...");
 	c = sizeof(struct sockaddr_in);
-	new_socket = accept(socket_desc, (struct sockaddr *)&client, (socklen_t*)&c);
+	while
+	(new_socket = accept(socket_desc, (struct sockaddr *)&client, (socklen_t*)&c)){
 	if (new_socket<0)
-	{
+		{
 		perror("accept failed");
-	}
-	
+		}	
 	puts("Connection accepted");
+	send(new_socket, msg, 2000, 0);
+	recv(new_socket, buffer, 2000, 0);
+	printf("message from client: %s\n", buffer);
+	}
 
 	return 0;
 }
