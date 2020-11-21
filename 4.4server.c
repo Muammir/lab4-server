@@ -12,7 +12,7 @@ int main(int argc , char *argv[])
 	int socket_desc , new_socket , c;
 	struct sockaddr_in server ;
 	struct sockaddr_in Baruserver;
-	char buffer[2000];
+	char buffer[2000], server_reply[2000];
 	pid_t Childpid;
 	
 	//Create socket
@@ -43,8 +43,7 @@ int main(int argc , char *argv[])
 	//Accept and incoming connection
 	puts("Waiting for incoming connections...");
 	c = sizeof(struct sockaddr_in);
-	while(1){
-	new_socket = accept(socket_desc, (struct sockaddr *)&Baruserver, (socklen_t*)&c);
+	while(new_socket = accept(socket_desc, (struct sockaddr *)&Baruserver, (socklen_t*)&c)){
 	if (new_socket<0)
 		{
 		perror("accept failed");
@@ -64,6 +63,9 @@ int main(int argc , char *argv[])
 					send(new_socket, buffer, strlen(buffer), 0);
 					bzero(buffer, sizeof(buffer));
 				}
+//				printf("Server: \t");
+  //              		scanf("%s", &server_reply[0]);
+    //            		send(socket_desc, server_reply, strlen(server_reply), 0);
 			}
 		}
 //	send(new_socket, msg, 2000, 0);
